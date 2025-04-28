@@ -1,0 +1,24 @@
+{
+  "name": "whatsapp-microservices",
+  "version": "1.0.0",
+  "description": "Whatsapp Messaging service for akucuciin",
+  "main": "src/server.mjs",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --ignore auth/ ./src/server.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aghnat Hasya Sayyidina @akucuciin",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.17.16",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "mime": "^4.0.7",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
