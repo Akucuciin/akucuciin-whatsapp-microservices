@@ -20,20 +20,9 @@ export function verifyXSignature(req, res, next) {
       .update(payloadStr)
       .digest("hex");
 
-    console.log(expectedSignature);
-    console.log(xSignature);
-
     if (xSignature !== expectedSignature) {
       return res.status(403).json({ errors: "Forbidden – invalid signature" });
     }
-
-    /* const { timestamp } = req.body;
-    const now = Date.now();
-    if (!timestamp || Math.abs(now - timestamp) > 5 * 60 * 1000) {
-      return res
-        .status(408)
-        .json({ errors: "Request expired or invalid timestamp" });
-    } */
 
     next();
   } catch (error) {
