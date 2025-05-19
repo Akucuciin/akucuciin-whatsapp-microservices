@@ -34,11 +34,11 @@ export const startWhatsAppBot = async () => {
 export const sendMessage = async (jid, text) => {
   if (!sock) throw new Error("WhatsApp bot is not connected yet!");
   await sock.sendMessage(jid, { text });
-  console.log(`Message sent to ${jid}: ${text}`);
+  console.log(`\nMessage sent to ${jid}: ${text}`);
 };
 
 export const sendMessageWithQr = async (jid, text) => {
   if (!sock) throw new Error("WhatsApp bot is not connected yet!");
   await sock.sendMessage(jid, text);
-  console.log(`Message with qr sent to ${jid}: ${text}`);
+  console.log(`\nMessage with qr sent to ${jid}: ${text}`);
 };

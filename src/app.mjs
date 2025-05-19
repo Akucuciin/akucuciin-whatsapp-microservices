@@ -32,9 +32,24 @@ const whatsappMessageSchema = Joi.object({
 
 // Logging
 app.use((req, res, next) => {
-  console.log(
-    `[${new Date().toISOString()}] ${req.ip} - ${req.method} ${req.originalUrl}`
-  );
+  const start = process.hrtime(); // high-res timer
+
+  res.on("finish", () => {
+    const duration = process.hrtime(start);
+    const durationMs = (duration[0] * 1e3 + duration[1] / 1e6).toFixed(2);
+
+    const log = [
+      `[${new Date().toISOString()}]`,
+      `${req.ip}`,
+      `${req.method} ${req.originalUrl}`,
+      `Status: ${res.statusCode}`,
+      `Duration: ${durationMs}ms`,
+      `User-Agent: ${req.get("user-agent")}`,
+    ].join(" | ");
+
+    console.log(log);
+  });
+
   next();
 });
 
