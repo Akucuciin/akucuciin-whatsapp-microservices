@@ -1,6 +1,5 @@
 import "dotenv/config";
 import express from "express";
-import fs from "fs";
 import Joi from "joi";
 import mime from "mime";
 import path from "path";
@@ -77,7 +76,6 @@ app.post("/send-with-image", verifyXSignature, async (req, res) => {
 
   try {
     const filePath = path.join("static", imagePath);
-    const buffer = fs.readFileSync(filePath);
     const mimetype = mime.getType(filePath);
 
     if (!mimetype || !mimetype.startsWith("image/")) {
