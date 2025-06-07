@@ -30,6 +30,17 @@ const whatsappMessageSchema = Joi.object({
   content: Joi.string().optional().allow(""),
 });
 
+const whatsappMessageWithImageSchema = Joi.object({
+  jid: Joi.string()
+    .pattern(/^[0-9]+@s\.whatsapp\.net$/)
+    .required()
+    .messages({
+      "string.pattern.base": "JID must be like '628xxxx@s.whatsapp.net'",
+    }),
+  content: Joi.string().optional().allow(""),
+  imagePath: Joi.string().required(),
+});
+
 // Logging
 app.use((req, res, next) => {
   const start = process.hrtime(); // high-res timer
@@ -53,8 +64,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/send-with-qr", verifyXSignature, async (req, res) => {
-  const { error, value } = whatsappMessageSchema.validate(req.body);
+app.post("/send-with-image", verifyXSignature, async (req, res) => {
+  const { error, value, imagePath } = whatsappMessageWithImageSchema.validate(
+    req.body
+  );
 
   if (error) {
     return res.status(400).json({ errors: error.details });
@@ -63,7 +76,7 @@ app.post("/send-with-qr", verifyXSignature, async (req, res) => {
   const { jid, content } = value;
 
   try {
-    const filePath = path.join("static", "qris.jpeg");
+    const filePath = path.join("static", imagePath);
     const buffer = fs.readFileSync(filePath);
     const mimetype = mime.getType(filePath);
 
