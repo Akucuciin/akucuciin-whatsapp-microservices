@@ -64,15 +64,13 @@ app.use((req, res, next) => {
 });
 
 app.post("/send-with-image", verifyXSignature, async (req, res) => {
-  const { error, value, imagePath } = whatsappMessageWithImageSchema.validate(
-    req.body
-  );
+  const { error, value } = whatsappMessageWithImageSchema.validate(req.body);
 
   if (error) {
     return res.status(400).json({ errors: error.details });
   }
 
-  const { jid, content } = value;
+  const { jid, content, imagePath } = value;
 
   try {
     const filePath = path.join("static", imagePath);
