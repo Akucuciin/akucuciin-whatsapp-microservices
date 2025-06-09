@@ -3,3 +3,4 @@ node_modules/
 /auth/whatsapp/*
 *.zip
 todo.txt
+static/qris.jpeg
