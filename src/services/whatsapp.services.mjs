@@ -13,6 +13,7 @@ export const startWhatsAppBot = async () => {
     auth: state,
     printQRInTerminal: true,
     shouldSyncHistoryMessage: false,
+    version: [2, 2413, 1],
     getMessage: async () => undefined,
   });
 
